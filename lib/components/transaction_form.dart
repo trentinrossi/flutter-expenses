@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class TransactionForm extends StatelessWidget {
-  TransactionForm({Key? key}) : super(key: key);
+  // Esta função o componente pai vai passar aqui para ela executar
+  final void Function(String, double) onSubmit;
+
+  TransactionForm(this.onSubmit);
 
   final titleController = TextEditingController();
   final valueController = TextEditingController();
@@ -30,8 +33,10 @@ class TransactionForm extends StatelessWidget {
               children: [
                 TextButton(
                     onPressed: () {
-                      print(titleController.text);
-                      print(valueController.text);
+                      final title = titleController.text;
+                      final value =
+                          double.tryParse(valueController.text) ?? 0.0;
+                      onSubmit(title, value);
                     },
                     child: const Text(
                       'Nova transação',

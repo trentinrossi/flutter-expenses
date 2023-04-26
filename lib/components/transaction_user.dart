@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../models/transaction.dart';
@@ -22,11 +24,23 @@ class _TransactionUserState extends State<TransactionUser> {
         id: 't2', title: 'Conta de luz', value: 150.90, date: DateTime.now()),
   ];
 
+  _addTransaction(String title, double value) {
+    final transaction = Transaction(
+        id: Random().nextDouble().toString(),
+        title: title,
+        value: value,
+        date: DateTime.now());
+
+    setState(() {
+      _transactions.add(transaction);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       TransactionList(transactions: _transactions),
-      TransactionForm()
+      TransactionForm(_addTransaction)
     ]);
   }
 }
