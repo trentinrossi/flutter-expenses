@@ -1,5 +1,8 @@
-import 'package:expenses/models/trnsactions.dart';
+import 'package:expenses/components/transaction_form.dart';
+import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
+
+import 'components/transaction_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,7 +39,6 @@ class MyHomePage extends StatelessWidget {
         title: const Text('Expenses'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
@@ -46,13 +48,8 @@ class MyHomePage extends StatelessWidget {
               child: Text('Gráfico'),
             ),
           ),
-          Column(
-            children: _transactions
-                .map((e) => Card(
-                      child: Text(e.title),
-                    ))
-                .toList(),
-          )
+          TransactionList(transactions: _transactions),
+          TransactionForm()
         ],
       ),
     );
