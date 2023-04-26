@@ -1,8 +1,6 @@
-import 'package:expenses/components/transaction_form.dart';
-import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
 
-import 'components/transaction_list.dart';
+import 'components/transaction_user.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,16 +20,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
 
-  final _transactions = [
-    Transaction(
-        id: 't1',
-        title: 'Novo tenis de corrida',
-        value: 310.76,
-        date: DateTime.now()),
-    Transaction(
-        id: 't2', title: 'Conta de luz', value: 150.90, date: DateTime.now()),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,8 +36,7 @@ class MyHomePage extends StatelessWidget {
               child: Text('Gráfico'),
             ),
           ),
-          TransactionList(transactions: _transactions),
-          TransactionForm()
+          TransactionUser()
         ],
       ),
     );
