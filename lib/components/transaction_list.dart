@@ -29,14 +29,15 @@ class TransactionList extends StatelessWidget {
                     padding: const EdgeInsets.all(10),
                     child: Text(
                       'R\$ ${transaction.value.toStringAsFixed(2)}',
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     )),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(transaction.title,
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold)),
+                    Text(
+                      transaction.title,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                     Text(DateFormat('d MMM y').format(transaction.date),
                         style: const TextStyle(color: Colors.grey))
                   ],

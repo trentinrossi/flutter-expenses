@@ -15,51 +15,59 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData tema = ThemeData(
+      fontFamily: 'Roboto',
+    );
+
     return MaterialApp(
       home: MyHomePage(),
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(
+      theme: tema.copyWith(
+          appBarTheme: const AppBarTheme(
             titleTextStyle: TextStyle(
-          fontFamily: 'Open Sans',
-          fontSize: 22,
-          fontWeight: FontWeight.bold,
-        )),
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: Colors.purple,
-          secondary: Colors.green,
-          brightness: Brightness.light,
-        ),
-        fontFamily: 'Roboto',
-        inputDecorationTheme: const InputDecorationTheme(
+              fontFamily: 'Open Sans',
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          colorScheme: tema.colorScheme.copyWith(
+            primary: Colors.purple,
+            secondary: Colors.green,
+            brightness: Brightness.light,
+          ),
+          // fontFamily: 'Roboto',
+          inputDecorationTheme: const InputDecorationTheme(
             labelStyle: TextStyle(
-          color: Colors.blue,
-          fontWeight: FontWeight.normal,
-        )),
-        textTheme: const TextTheme(
-          titleLarge: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+              color: Colors.blue,
+              fontWeight: FontWeight.normal,
+            ),
           ),
-          titleMedium: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Colors.purple,
-          ),
-          titleSmall: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-          ),
-          labelSmall: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-          ),
-          labelMedium: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
+          textTheme: tema.textTheme.copyWith(
+            titleMedium: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+            titleLarge: const TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+            bodyMedium: const TextStyle(
+              color: Colors.purple,
+              fontWeight: FontWeight.bold,
+            ),
+            titleSmall: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+            labelSmall: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+            labelMedium: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          )),
     );
   }
 }
@@ -72,7 +80,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _transactions = [
+  final List<Transaction> _transactions = [
     Transaction(
         id: 't1',
         title: 'Novo tenis de corrida',
@@ -116,35 +124,51 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Expenses'),
+        title: const Text('Expenses'),
         actions: [
           IconButton(
               onPressed: () => _openTransactionFormModal(context),
-              icon: Icon(Icons.add))
+              icon: const Icon(Icons.add))
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              child: Card(
-                color: Theme.of(context).colorScheme.secondary,
-                elevation: 5,
-                child: Text(
-                  'Gráfico',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
+      body: _transactions.isNotEmpty
+          ? SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Card(
+                    color: Theme.of(context).colorScheme.secondary,
+                    elevation: 5,
+                    child: Text(
+                      'Gráfico',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ),
+                  TransactionList(transactions: _transactions)
+                  // TransactionUser()
+                ],
               ),
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Nenhuma transação cadastrada',
+                  style: Theme.of(context).textTheme.titleMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+                Icon(
+                  Icons.hourglass_empty,
+                  size: 200,
+                  color: Colors.grey[300],
+                ),
+              ],
             ),
-            TransactionList(transactions: _transactions)
-            // TransactionUser()
-          ],
-        ),
-      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _openTransactionFormModal(context),
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
