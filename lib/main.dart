@@ -18,12 +18,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: MyHomePage(),
       theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+            titleTextStyle: TextStyle(
+          fontFamily: 'Open Sans',
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+        )),
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: Colors.purple,
           secondary: Colors.green,
           brightness: Brightness.light,
         ),
-        fontFamily: 'Open Sans',
+        fontFamily: 'Roboto',
         inputDecorationTheme: const InputDecorationTheme(
             labelStyle: TextStyle(
           color: Colors.blue,
@@ -110,10 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Expenses',
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
+        title: Text('Expenses'),
         actions: [
           IconButton(
               onPressed: () => _openTransactionFormModal(context),
