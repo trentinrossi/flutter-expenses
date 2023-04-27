@@ -20,17 +20,17 @@ class TransactionList extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.purple, width: 2)),
-                  padding: const EdgeInsets.all(10),
-                  child: Text('R\$ ${transaction.value.toStringAsFixed(2)}',
-                      style: const TextStyle(
-                          color: Colors.purple,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold)),
-                ),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 10),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Theme.of(context).colorScheme.primary,
+                            width: 2)),
+                    padding: const EdgeInsets.all(10),
+                    child: Text(
+                      'R\$ ${transaction.value.toStringAsFixed(2)}',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    )),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

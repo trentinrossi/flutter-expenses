@@ -17,6 +17,43 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: MyHomePage(),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: Colors.purple,
+          secondary: Colors.green,
+          brightness: Brightness.light,
+        ),
+        fontFamily: 'Open Sans',
+        inputDecorationTheme: const InputDecorationTheme(
+            labelStyle: TextStyle(
+          color: Colors.blue,
+          fontWeight: FontWeight.normal,
+        )),
+        textTheme: const TextTheme(
+          titleLarge: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+          titleMedium: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.purple,
+          ),
+          titleSmall: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+          ),
+          labelSmall: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+          ),
+          labelMedium: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -65,13 +102,18 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _transactions.add(transaction);
     });
+
+    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Expenses'),
+        title: Text(
+          'Expenses',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
         actions: [
           IconButton(
               onPressed: () => _openTransactionFormModal(context),
@@ -83,10 +125,13 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              child: const Card(
-                color: Colors.blue,
+              child: Card(
+                color: Theme.of(context).colorScheme.secondary,
                 elevation: 5,
-                child: Text('Gráfico'),
+                child: Text(
+                  'Gráfico',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
               ),
             ),
             TransactionList(transactions: _transactions)
