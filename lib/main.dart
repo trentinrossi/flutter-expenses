@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:expenses/components/transaction_form.dart';
+import 'package:expenses/components/transaction_graph.dart';
 import 'package:expenses/components/transaction_list.dart';
 import 'package:flutter/material.dart';
 
@@ -87,15 +88,30 @@ class _MyHomePageState extends State<MyHomePage> {
         value: 310.76,
         date: DateTime.now()),
     Transaction(
-        id: 't2', title: 'Conta de luz', value: 150.90, date: DateTime.now()),
+        id: 't2',
+        title: 'Conta de luz',
+        value: 490.90,
+        date: DateTime.now().subtract(Duration(days: 1))),
     Transaction(
-        id: 't3', title: 'Conta de agua', value: 150.90, date: DateTime.now()),
+        id: 't3',
+        title: 'Conta de agua',
+        value: 239.90,
+        date: DateTime.now().subtract(Duration(days: 2))),
     Transaction(
-        id: 't4', title: 'Internet', value: 150.90, date: DateTime.now()),
+        id: 't4',
+        title: 'Internet',
+        value: 889.90,
+        date: DateTime.now().subtract(Duration(days: 3))),
     Transaction(
-        id: 't5', title: 'Netflix', value: 150.90, date: DateTime.now()),
+        id: 't5',
+        title: 'Netflix',
+        value: 150.90,
+        date: DateTime.now().subtract(Duration(days: 4))),
     Transaction(
-        id: 't6', title: 'Parcela casa', value: 150.90, date: DateTime.now()),
+        id: 't6',
+        title: 'Parcela casa',
+        value: 150.90,
+        date: DateTime.now().subtract(Duration(days: 4))),
   ];
 
   _openTransactionFormModal(BuildContext context) {
@@ -104,6 +120,14 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (_) {
           return TransactionForm(_addTransaction);
         });
+  }
+
+  List<Transaction> get _recentTransactions {
+    return _transactions.where((tr) {
+      return tr.date.isAfter(DateTime.now().subtract(
+        Duration(days: 7),
+      ));
+    }).toList();
   }
 
   _addTransaction(String title, double value) {
@@ -136,14 +160,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Card(
-                    color: Theme.of(context).colorScheme.secondary,
-                    elevation: 5,
-                    child: Text(
-                      'Gráfico',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ),
+                  TransactionGraph(transactions: _recentTransactions),
                   TransactionList(transactions: _transactions)
                   // TransactionUser()
                 ],
