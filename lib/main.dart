@@ -161,6 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   TransactionGraph(transactions: _recentTransactions),
+                  SizedBox(height: 12),
                   TransactionList(transactions: _transactions)
                   // TransactionUser()
                 ],

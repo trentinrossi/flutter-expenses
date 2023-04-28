@@ -46,7 +46,7 @@ class TransactionGraph extends StatelessWidget {
       children: [
         const SizedBox(height: 10),
         Text(
-          'Gastos semanais',
+          'Evolução diária',
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         const SizedBox(height: 10),

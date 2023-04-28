@@ -17,34 +17,22 @@ class TransactionList extends StatelessWidget {
         itemBuilder: (context, index) {
           final transaction = transactions[index];
           return Card(
-            child: Row(
-              children: [
-                Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 10),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Theme.of(context).colorScheme.primary,
-                            width: 2)),
-                    padding: const EdgeInsets.all(10),
-                    child: Text(
-                      'R\$ ${transaction.value.toStringAsFixed(2)}',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    )),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      transaction.title,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    Text(DateFormat('d MMM y - E').format(transaction.date),
-                        style: const TextStyle(color: Colors.grey))
-                  ],
-                ),
-              ],
-            ),
-          );
+              margin: const EdgeInsets.all(1),
+              child: ListTile(
+                  dense: true,
+                  leading: const Icon(
+                    Icons.account_balance_wallet_outlined,
+                    size: 35,
+                  ),
+                  title: Text(transaction.title,
+                      style: Theme.of(context).textTheme.titleMedium),
+                  subtitle: Text(
+                      DateFormat('d MMM y - E').format(transaction.date),
+                      style: Theme.of(context).textTheme.bodySmall),
+                  trailing: Text(
+                    'R\$ ${transaction.value.toStringAsFixed(2)}',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  )));
         },
       ),
     );
