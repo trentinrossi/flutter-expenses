@@ -31,26 +31,41 @@ class _TransactionFormState extends State<TransactionForm> {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
+            SizedBox(height: 30),
             TextField(
               controller: titleController,
               onSubmitted: (value) => _submitForm,
-              decoration: InputDecoration(labelText: 'Título'),
+              decoration: const InputDecoration(
+                labelText: 'Título',
+                border: OutlineInputBorder(),
+              ),
             ),
+            SizedBox(height: 30),
             TextField(
               keyboardType: TextInputType.numberWithOptions(decimal: true),
               onSubmitted: (value) => _submitForm,
               controller: valueController,
-              decoration: InputDecoration(labelText: 'Valor R\$'),
+              decoration: const InputDecoration(
+                labelText: 'Valor R\$',
+                border: OutlineInputBorder(),
+              ),
             ),
+            SizedBox(height: 30),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextButton(
-                    onPressed: _submitForm,
-                    child: const Text(
-                      'Nova transação',
-                      style: TextStyle(color: Colors.purple),
-                    )),
+                Container(
+                  width: 300,
+                  height: 40,
+                  child: ElevatedButton(
+                      onPressed: _submitForm,
+                      child: Text(
+                        'Adicionar',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      )),
+                ),
               ],
             )
           ],
