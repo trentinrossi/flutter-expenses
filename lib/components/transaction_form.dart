@@ -69,7 +69,7 @@ class _TransactionFormState extends State<TransactionForm> {
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 10),
             Container(
               height: 70,
               child: Row(
@@ -83,7 +83,7 @@ class _TransactionFormState extends State<TransactionForm> {
                 ],
               ),
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -100,7 +100,8 @@ class _TransactionFormState extends State<TransactionForm> {
                       )),
                 ),
               ],
-            )
+            ),
+            SizedBox(height: 20),
           ],
         ),
       ),
