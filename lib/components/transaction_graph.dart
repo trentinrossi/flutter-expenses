@@ -42,28 +42,24 @@ class TransactionGraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 10),
-        Text(
-          'Evolução diária',
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
-        const SizedBox(height: 10),
-        Row(
+    return Card(
+      elevation: 6,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: groupedTransactions
-              .map((tr) => Flexible(
-                    fit: FlexFit.tight,
-                    child: GraphBar(
-                      label: tr['day'] as String,
-                      value: tr['value'] as double,
-                      percentage: (tr['value'] as double) / _weekTotalValue,
-                    ),
-                  ))
-              .toList(),
+          children: groupedTransactions.map((tr) {
+            return Flexible(
+              fit: FlexFit.tight,
+              child: GraphBar(
+                label: tr['day'] as String,
+                value: tr['value'] as double,
+                percentage: (tr['value'] as double) / _weekTotalValue,
+              ),
+            );
+          }).toList(),
         ),
-      ],
+      ),
     );
   }
 }
