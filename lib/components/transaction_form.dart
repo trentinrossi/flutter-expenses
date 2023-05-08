@@ -1,3 +1,4 @@
+import 'package:expenses/components/adaptative_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -89,15 +90,10 @@ class _TransactionFormState extends State<TransactionForm> {
               children: [
                 Container(
                   width: 300,
-                  height: 40,
-                  child: ElevatedButton(
-                      onPressed: _submitForm,
-                      child: Text(
-                        'Adicionar',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      )),
+                  child: AdaptativeButton(
+                    onPressed: _submitForm,
+                    label: 'Adicionar',
+                  ),
                 ),
               ],
             ),
