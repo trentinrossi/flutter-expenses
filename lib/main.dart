@@ -1,8 +1,10 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:expenses/components/transaction_form.dart';
 import 'package:expenses/components/transaction_graph.dart';
 import 'package:expenses/components/transaction_list.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'models/transaction.dart';
@@ -141,49 +143,69 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar.preferredSize.height -
         MediaQuery.of(context).padding.top;
 
-    return Scaffold(
-      appBar: appBar,
-      body: _transactions.isNotEmpty
-          ? SingleChildScrollView(
-              child: Column(
+    final body = SafeArea(
+        child: _transactions.isNotEmpty
+            ? SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(
+                      height: availableHeight * 0.2,
+                      child:
+                          TransactionGraph(transactions: _recentTransactions),
+                    ),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      height: availableHeight * 0.8,
+                      child: TransactionList(
+                          transactions: _transactions,
+                          onRemove: _removeTransaction),
+                    )
+                    // TransactionUser()
+                  ],
+                ),
+              )
+            : Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: availableHeight * 0.2,
-                    child: TransactionGraph(transactions: _recentTransactions),
+                  Text(
+                    'Nenhuma transação cadastrada',
+                    style: Theme.of(context).textTheme.titleMedium,
+                    textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 12),
-                  SizedBox(
-                    height: availableHeight * 0.8,
-                    child: TransactionList(
-                        transactions: _transactions,
-                        onRemove: _removeTransaction),
+                  const SizedBox(height: 20),
+                  Icon(
+                    Icons.hourglass_empty,
+                    size: 200,
+                    color: Colors.grey[300],
+                  ),
+                ],
+              ));
+
+    return Platform.isIOS
+        ? CupertinoPageScaffold(
+            navigationBar: CupertinoNavigationBar(
+              middle: const Text('Expenses'),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GestureDetector(
+                    onTap: () => _openTransactionFormModal(context),
+                    child: const Icon(CupertinoIcons.add),
                   )
-                  // TransactionUser()
                 ],
               ),
-            )
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Nenhuma transação cadastrada',
-                  style: Theme.of(context).textTheme.titleMedium,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 20),
-                Icon(
-                  Icons.hourglass_empty,
-                  size: 200,
-                  color: Colors.grey[300],
-                ),
-              ],
             ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _openTransactionFormModal(context),
-        child: const Icon(Icons.add),
-      ),
-    );
+            child: body,
+          )
+        : Scaffold(
+            appBar: appBar,
+            body: body,
+            floatingActionButton: FloatingActionButton(
+              onPressed: () => _openTransactionFormModal(context),
+              child: const Icon(Icons.add),
+            ),
+          );
   }
 }
