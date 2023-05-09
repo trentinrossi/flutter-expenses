@@ -1,4 +1,5 @@
 import 'package:expenses/components/adaptative_button.dart';
+import 'package:expenses/components/adaptative_date_picker.dart';
 import 'package:expenses/components/adaptative_field.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -27,23 +28,6 @@ class _TransactionFormState extends State<TransactionForm> {
     widget.onSubmit(title, value, _selectedDate);
   }
 
-  _showDatePicker() {
-    showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime(2019, 01, 01),
-            lastDate: DateTime.now())
-        .then((pickedDate) {
-      if (pickedDate == null) {
-        return;
-      }
-
-      setState(() {
-        _selectedDate = pickedDate;
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -52,37 +36,32 @@ class _TransactionFormState extends State<TransactionForm> {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             AdaptativeField(
                 label: 'Título',
                 onSubmitted: _submitForm,
                 controller: _titleController,
                 inputType: TextInputType.text),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             AdaptativeField(
                 label: 'Valor R\$',
                 onSubmitted: _submitForm,
                 controller: _valueController,
-                inputType: TextInputType.numberWithOptions(decimal: true)),
-            SizedBox(height: 10),
-            Container(
-              height: 70,
-              child: Row(
-                children: [
-                  Text(_selectedDate == null
-                      ? 'Nenhuma data selecionada'
-                      : DateFormat('dd/MM/y').format(_selectedDate)),
-                  TextButton(
-                      onPressed: _showDatePicker,
-                      child: Text('Selecionar data'))
-                ],
-              ),
-            ),
-            SizedBox(height: 10),
+                inputType:
+                    const TextInputType.numberWithOptions(decimal: true)),
+            const SizedBox(height: 10),
+            AdaptativeDatePicker(
+                selectedDate: _selectedDate,
+                onDateChanged: (selected) {
+                  setState(() {
+                    _selectedDate = selected;
+                  });
+                }),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
+                SizedBox(
                   width: 300,
                   child: AdaptativeButton(
                     onPressed: _submitForm,
@@ -91,7 +70,7 @@ class _TransactionFormState extends State<TransactionForm> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
           ],
         ),
       ),
